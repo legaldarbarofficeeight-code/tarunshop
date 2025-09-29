@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scenery Shop</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: url("https://picsum.photos/1600/900?landscape") no-repeat center center/cover;
+      background-attachment: fixed;
+      color:#fff;
+    }
+
+    /* Navbar */
+    nav {
+      position:fixed;
+      top:0; left:0;
+      width:100%;
+      background:rgba(0,0,0,0.7);
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:1000;
+    }
+    nav h2 {color:#0ff; font-size:24px;}
+    nav ul {display:flex; gap:20px; list-style:none;}
+    nav ul li a {
+      color:#fff; text-decoration:none;
+      font-weight:bold; transition:color 0.3s;
+    }
+    nav ul li a:hover {color:#0ff;}
+
+    header {
+      text-align:center;
+      padding:120px 20px 80px;
+      position:relative;
+      z-index:3;
+    }
+    header p {margin-top:10px; font-size:20px;}
+
+    /* Scenery animations */
+    .sun, .moon {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      width: 100px; height:100px;
+      margin-left:-50px;
+      border-radius:50%;
+      animation: moveAcross 30s linear infinite;
+      z-index:1;
+    }
+    .sun {
+      background: radial-gradient(circle, #FFD700, #FFA500);
+      box-shadow:0 0 30px #FFD700;
+    }
+    .moon {
+      background: radial-gradient(circle,#f0f0f0,#bbb);
+      box-shadow:0 0 20px #fff;
+      display:none;
+    }
+    body.night .sun {display:none;}
+    body.night .moon {display:block;}
+
+    @keyframes moveAcross {
+      0%{transform:translateX(-400px);}
+      50%{transform:translateX(400px) translateY(100px);}
+      100%{transform:translateX(-400px);}
+    }
+
+    .stars {
+      position:fixed; top:0; left:0;
+      width:100%; height:100%;
+      background:transparent;
+      background-image: radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+                       radial-gradient(2px 2px at 50% 80%, #fff, transparent),
+                       radial-gradient(1.5px 1.5px at 70% 20%, #fff, transparent),
+                       radial-gradient(2px 2px at 90% 60%, #fff, transparent),
+                       radial-gradient(1px 1px at 40% 50%, #fff, transparent);
+      opacity:0;
+      transition: opacity 3s;
+      z-index:0;
+    }
+    body.night .stars {opacity:1;}
+
+    .cloud {
+      position:fixed;
+      background:#fff;
+      border-radius:50%;
+      opacity:0.8;
+      animation: cloudMove 80s linear infinite;
+      z-index:2;
+    }
+    .cloud::before, .cloud::after {
+      content:''; position:absolute;
+      background:#fff; border-radius:50%;
+    }
+    .cloud1 {top:120px; left:-200px; width:150px; height:80px; animation-duration:70s;}
+    .cloud1::before{width:100px; height:100px; top:-30px; left:-40px;}
+    .cloud1::after{width:80px; height:80px; top:-20px; left:90px;}
+
+    .cloud2 {top:200px; left:-250px; width:200px; height:100px; animation-duration:90s;}
+    .cloud2::before{width:120px; height:120px; top:-40px; left:-50px;}
+    .cloud2::after{width:100px; height:100px; top:-30px; left:110px;}
+
+    @keyframes cloudMove {
+      from{transform:translateX(0);}
+      to{transform:translateX(1500px);}
+    }
+
+    /* Sections */
+    section {
+      padding:80px 20px;
+      background:rgba(0,0,0,0.6);
+      margin:40px auto;
+      max-width:1200px;
+      border-radius:12px;
+    }
+    section h2 {
+      text-align:center;
+      font-size:36px;
+      margin-bottom:30px;
+    }
+
+    /* Grid Cards */
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+      gap:20px;
+    }
+    .card {
+      background:#222;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 4px 15px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+    .card:hover { transform: scale(1.05);}
+    .card img {width:100%; height:200px; object-fit:cover;}
+    .card .info {padding:15px;}
+    .card .info h3 {margin-bottom:10px;}
+    .card .info p {font-size:14px; color:#ccc;}
+
+    /* Reviews */
+    .review {background:#111; padding:20px; border-radius:10px; margin:10px 0;}
+
+    footer {
+      text-align:center;
+      padding:30px;
+      background:rgba(0,0,0,0.8);
+      margin-top:40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- scenery -->
+  <div class="sun"></div>
+  <div class="moon"></div>
+  <div class="stars"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <h2>TarunSceneryShop</h2>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header id="home">
+    <p>Welcome to our Tarun E-commerce Shop</p>
+  </header>
+
+  <!-- Products -->
+  <section id="products">
+    <h2>Featured Products</h2>
+    <div class="grid">
+      <div class="card"><img src="https://picsum.photos/300/200?random=1"><div class="info"><h3>Product 1</h3><p>Awesome product description.</p></div></div>
+      <div class="card"><img src="https://picsum.photos/300/200?random=2"><div class="info"><h3>Product 2</h3><p>Best quality guaranteed.</p></div></div>
+      <div class="card"><img src="https://picsum.photos/300/200?random=3"><div class="info"><h3>Product 3</h3><p>Stylish & modern design.</p></div></div>
+      <div class="card"><img src="https://picsum.photos/300/200?random=4"><div class="info"><h3>Product 4</h3><p>Value for money deal.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories">
+    <h2>Shop by Categories</h2>
+    <div class="grid">
+      <div class="card"><img src="https://picsum.photos/300/200?random=5"><div class="info"><h3>Clothing</h3></div></div>
+      <div class="card"><img src="https://picsum.photos/300/200?random=6"><div class="info"><h3>Electronics</h3></div></div>
+      <div class="card"><img src="https://picsum.photos/300/200?random=7"><div class="info"><h3>Accessories</h3></div></div>
+      <div class="card"><img src="https://picsum.photos/300/200?random=8"><div class="info"><h3>Home Decor</h3></div></div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews">
+    <h2>What Our Customers Say</h2>
+    <div class="review"><p>⭐⭐⭐⭐⭐ - "Amazing products & fast delivery!"</p></div>
+    <div class="review"><p>⭐⭐⭐⭐ - "Great quality, will buy again."</p></div>
+    <div class="review"><p>⭐⭐⭐⭐⭐ - "Love the website animations!"</p></div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p style="text-align:center; max-width:800px; margin:auto;">
+      "Our Scenery Shop brings you premium quality products with a unique animated shopping experience. 
+      Scroll through our categories, enjoy the beautiful scenery, and discover great deals every day"
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p style="text-align:center;">📧 Email: mrjaat805@gmail.com | 📞 Phone: +91 8053062058</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 TARUN Shop. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Auto toggle day/night every 15s
+    setInterval(()=>document.body.classList.toggle("night"),15000);
+  </script>
+</body>
+</html>
